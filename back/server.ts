@@ -18,7 +18,13 @@ let repositorio1: RepositorioDeAnimes = new RepositorioDeAnimes();
 repositorio1.povoar();
 
 app.use(express.json());
+
+
 app.use(cors());
+
+app.use(cors({
+    origin: 'https://jiotajoia.github.io'
+  }));
 
 const PATH_ANIMES: string = '/animesjoia/animes'; 
 const PATH_BUSCAR: string = PATH_ANIMES + '/buscar';
