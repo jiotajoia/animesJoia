@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Animes Joia :D</title>
+    <link href="./output.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="./image/positive-vote.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="joia.js"></script>
+  </head> 
+
+  <body class="bg-nagisa-color flex flex-col min-h-screen"> 
+    <header class="justify-start items-center bg-slate-900 grid grid-cols-5">    
+          <a id="itensEsquerda" class="col-span-1 flex items-start" href="joia.html">
+            <img src="./image/nagisa_icon.png" alt="Ícone do site" class="pl-4 pb-4 pt-2 w-20 h-15">
+            <p class="text-2xl font-sans text-center mb-4 pb-2 pt-5 text-white font-bold drop-shadow-lg ">
+              ANIMES JOIA 
+            </p>
+            
+          </a>
+
+          <div id="itensMeio" class="col-span-3 flex justify-center items-center">
+            <div id="div_pesquisa" class="flex items-center w-full max-w-2xl bg-gray-200 border-black rounded-lg  p-1">
+              <input 
+                type="text" 
+                id="barra_pesquisa" 
+                name="query" 
+                required 
+                placeholder="Digite o termo do anime que deseja buscar" 
+                class="w-full p-2 bg-gray-200 border-none rounded-lg focus:outline-none focus:ring-0"
+              >
+              
+
+              <select id="filtro_pesquisa" class="genero py-3 bg-gray-200 focus:outline-none focus:ring-0" name="filtros">
+                <option value="" disabled selected>Selecione um filtro</option>
+                <option value="genero">Genero</option>
+                <option value="autor">Autor</option>
+                <option value="titulo">Titulo</option>
+              </select>
+              
+              <button id="buscarAnimes" type="button" class="rounded-lg hover:bg-gray-300">
+                <img src="./image/loupe.png" alt="Botão para pesquisar" class="w-14 h-11">
+              </button>
+
+            </div>
+          </div>
+          
+
+          <div id="itensDireita" class="col-span-1 flex items-center justify-end">
+              <a href="./sobre.html" class=" text-white aspect-square justify-center items-center bg-nagisa-color border rounded-lg border-black mr-10" target="_blank">
+                <img src="./image/HELP.png" alt="Botão sobre o site" class="help-button w-11 h-11">
+              </a>
+          </div>
+    </header>
+
+    <main class="grid grid-cols-5 gap-4 flex-grow">
+      <div class="col-span-1 bg-nagisa-color ">
+        <br>
+      </div>
+
+      <div id="meio" class="col-span-3 bg-gray-200 flex flex-col items-center space-y-4">
+
+        <div class="max-w-lg rounded overflow-hidden shadow-lg bg-white mt-4">
+          <div class="p-4">
+            <h2 class="font-bold text-xl mb-2">Adicionar Anime</h2>
+            
+            <p>Título do Anime</p>
+            <input id="adc_ani_titulo" type="text" class="tituloAnime py-3" placeholder="Insira o título do anime...">
+
+            <p>Descrição</p>
+            <input id="adc_ani_desc" type="text" class="descAnime py-3" placeholder="Insira uma descrição para o anime...">
+
+            <p>Imagem do Anime</p>
+            <input id="adc_ani_img" type="text" class="descAnime py-3" placeholder="Insira um link de imagem para o anime...">
+
+            <p>Autor do Anime</p>
+            <input id="adc_ani_autor" type="text" class="descAnime py-3" placeholder="Insira o nome do autor para o anime...">
+
+            <p>Adicionar Gênero</p>
+            <select id="adc_ani_genero" class="genero py-3" name="generos">
+              <option value="" disabled selected>Selecione um gênero</option>
+              <option value="esporte">Esporte</option>
+              <option value="isekai">Isekai</option>
+              <option value="Mistério">Mistério</option>
+              <option value="seinen">Seinen</option>
+              <option value="aventura">Aventura</option>
+              <option value="sobrenatural">Sobrenatural</option>
+              <option value="shoujo">Shoujo</option>
+              <option value="shounen">Shounen</option>
+              <option value="scifi">Sci-fi</option>
+              <option value="outros">Outros</option>
+            </select>
+      
+            <p class="text-gray-700 text-base mb-4">
+              Esta é uma breve descrição do conteúdo do card. Ela fornece informações adicionais sobre o que está sendo exibido no card.
+            </p>
+            <button id="adicionaAnime" class="bg-blue-500 hover:bg-blue-700 text-white font-bold  rounded">
+              Adicionar novo anime
+            </button>
+          </div>
+        </div>
+
+        <div id="div_edita_anime" class="oculto max-w-lg rounded overflow-hidden shadow-lg bg-white mt-4">
+          <div class="p-4">
+            <h2 class="font-bold text-xl mb-2">Editar Anime</h2>
+            
+            <p>Título do Anime</p>
+            <input id="edi_ani_titulo" type="text" class="tituloAnime py-3" placeholder="Insira o título do anime...">
+
+            <p>Descrição</p>
+            <input id="edi_ani_desc" type="text" class="descAnime py-3" placeholder="Insira uma descrição para o anime...">
+
+            <p>Imagem do Anime</p>
+            <input id="edi_ani_img" type="text" class="descAnime py-3" placeholder="Insira um link de imagem para o anime...">
+
+            <p>Autor do Anime</p>
+            <input id="edi_ani_autor" type="text" class="descAnime py-3" placeholder="Insira o nome do autor para o anime...">
+
+            <p>Adicionar Gênero</p>
+            <select id="edi_ani_genero" class="genero py-3" name="generos">
+              <option value="" disabled selected>Selecione um gênero</option>
+              <option value="esporte">Esporte</option>
+              <option value="isekai">Isekai</option>
+              <option value="Mistério">Mistério</option>
+              <option value="seinen">Seinen</option>
+              <option value="aventura">Aventura</option>
+              <option value="sobrenatural">Sobrenatural</option>
+              <option value="shoujo">Shoujo</option>
+              <option value="shounen">Shounen</option>
+              <option value="scifi">Sci-fi</option>
+              <option value="outros">Outros</option>
+            </select>
+      
+            <p class="text-gray-700 text-base mb-4">
+              Esta é uma breve descrição do conteúdo do card. Ela fornece informações adicionais sobre o que está sendo exibido no card.
+            </p>
+            <button id="editaAnime" class="bg-blue-500 hover:bg-blue-700 text-white font-bold  rounded">
+              Salvar alteraçoes
+            </button>
+          </div>
+        </div>
+
+        <div id="div_edita_com" class="oculto max-w-lg rounded overflow-hidden shadow-lg bg-white mt-4">
+          <div class="px-40 py-10">
+            <h1>EDITAR COMENTARIO</h1>
+            <h2>
+              Título
+            </h2>
+            <input type="text"
+              id="edita_com_tit"
+              required
+              placeholder="Digite o novo título do comentário"
+              class="tituloComentario bg-gray-200 rounded-lg focus:outline-none focus:ring-0 p-2 mb-2"
+            >
+            <h2>
+              Comente
+            </h2>
+
+            <input type="text"
+              id="edita_com_cont"
+              required
+              placeholder="Digite o novo comentário"
+              class="comentario bg-gray-200 rounded-lg focus:outline-none focus:ring-0 p-2 mb-2"
+            >
+
+            <div class="flex justify-end">
+              <button id="butao_edit_com" class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded px-4 py-2 ">
+                Salvar alterações
+              </button>
+            </div>
+          </div> 
+        </div><!-- div editar comentario -->  
+
+        <div id="div_animes" class="space-y-4">
+          <!-- Card 1 -->
+          <div class="max-w-lg rounded overflow-hidden shadow-lg bg-white border border-black"><!-- novadiv -->
+            <img class="w-full h-70 object-cover" src="https://via.placeholder.com/400x300" alt="Imagem do Card">
+            <div class="p-4"><!-- div 2 -->
+              <h2 class="font-bold text-xl mb-2">Título do Card</h2>
+              <p class="text-gray-700 text-base mb-4">
+                Esta é uma breve descrição do conteúdo do card. Ela fornece informações adicionais sobre o que está sendo exibido no card.
+              </p>
+            
+              <div class="flex space-x-2"><!-- div 3 -->
+                <div class="cursor-pointer text-gray-400 text-4xl transition-colors duration-300">
+                   <i id="heart" class="far fa-heart"></i>
+                </div>
+
+                <div class=" cursor-pointer text-gray-400 text-4xl">
+                  <i id="comment" class="far fa-comments"></i> 
+                </div>  
+
+                <button id="excluirAnime">Excluir Anime</button>
+                <button id="editarAnime">Editar Anime</button>
+              </div>
+            
+
+              <div id= "commentBalloon" class="invisible absolute top-full mt-2 w-full max-w-lg bg-white border border-black rounded-lg shadow-lg transition-transform transform scale-0 -translate-x-4">
+                <div class="adc_comentario flex flex-col">
+                  <h1>
+                    Título
+                  </h1>
+                  <input type="text"
+                    required
+                    placeholder="Digite o título do comentário"
+                    class="tituloComentario bg-gray-200 rounded-lg focus:outline-none focus:ring-0 p-2 mb-2"
+                  >
+                  <h1>
+                    Comente
+                  </h1>
+                  <input type="text"
+                    required
+                    placeholder="Digite o comentário"
+                    class="comentario bg-gray-200 rounded-lg focus:outline-none focus:ring-0 p-2 mb-2"
+                  >
+                  <div class="flex justify-end">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded px-4 py-2 ">
+                      Adicionar Comentário
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="mt-8 w-full max-w-lg bg-gray-200 rounded-lg border border-gray-300 p-2">
+                    <h1 class="font-bold">
+                      Título
+                      
+                    </h1>
+
+                    <p>
+                        conteúdo
+                    </p>
+
+                    <div class="flex items-center">
+                      <div class="cursor-pointer text-gray-400 text-xl transition-colors duration-300">
+                        <i class="far fa-thumbs-up"></i>
+                      </div>
+
+                      <div class="cursor-pointer text-gray-400 text-xl transition-colors duration-300 ml-2">
+                        <i class="far fa-thumbs-down"></i>
+                      </div>
+
+                      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded px-4 py-2 ">
+                        Remover Comentário
+                      </button>
+
+                      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold rounded px-4 py-2 ">
+                         Atualizar Comentário
+                      </button>
+                      
+                      <h5 class="ml-auto">
+                        data
+                      </h5>
+
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+          
+          
+        </div>
+
+      <div class="col-span-1 bg-nagisa-color">
+          <br>
+      </div>
+
+    </main>
+      
+
+    <footer>
+      <p class="bg-slate-900 text-white text-center justify-center items-center">
+        &copy; 2024 Animes Joia . Todos os direitos reservados.
+        <br>
+        Feito com ♥ pela equipe Joia 👍.
+      </p>
+    </footer>
+  </body>
+  </html>
