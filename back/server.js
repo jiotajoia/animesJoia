@@ -1,32 +1,35 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const express = require('express');
-const { Request, Response, NextFunction } = require('express');
-const cors = require('cors');
+var express = require('express');
+var _a = require('express'), Request = _a.Request, Response = _a.Response, NextFunction = _a.NextFunction;
+var cors = require('cors');
 // const flash = require('connect-flash');
-const repositorioDeAnimes_1 = require("./repositorioDeAnimes");
+var repositorioDeAnimes_1 = require("./repositorioDeAnimes");
 // const mongoose =  require('mongoose');
 // const usuarios = require('./routes/usuarios')
 // import session from 'express-session';
 // import passport from 'passport';
 // import auth from './config/auth.js'
 // auth(passport);
-const app = express();
-let repositorio1 = new repositorioDeAnimes_1.RepositorioDeAnimes();
+var app = express();
+var repositorio1 = new repositorioDeAnimes_1.RepositorioDeAnimes();
 repositorio1.povoar();
 app.use(express.json());
+app.use(cors({
+    origin: 'https://jiotajoia.github.io'
+}));
 app.use(cors());
-const PATH_ANIMES = '/animesjoia/animes';
-const PATH_BUSCAR = PATH_ANIMES + '/buscar';
-const PATH_IDANIME = PATH_ANIMES + '/:id';
-const PATH_CURTIR_ANIME = PATH_IDANIME + '/curtir';
-const PATH_R_CURTIR_ANIME = PATH_IDANIME + '/r_curtir';
-const PATH_COMENTARIOS = PATH_IDANIME + '/comentarios';
-const PATH_COMENTARIOS_ID = PATH_COMENTARIOS + '/:id2';
-const PATH_CURTIR_comentario = PATH_COMENTARIOS_ID + '/curtir';
-const PATH_R_CURTIR_comentario = PATH_COMENTARIOS_ID + '/r_curtir';
-const PATH_DESCURTIR_comentario = PATH_COMENTARIOS_ID + '/descurtir';
-const PATH_R_DESCURTIR_comentario = PATH_COMENTARIOS_ID + '/r_descurtir';
+var PATH_ANIMES = '/animesjoia/animes';
+var PATH_BUSCAR = PATH_ANIMES + '/buscar';
+var PATH_IDANIME = PATH_ANIMES + '/:id';
+var PATH_CURTIR_ANIME = PATH_IDANIME + '/curtir';
+var PATH_R_CURTIR_ANIME = PATH_IDANIME + '/r_curtir';
+var PATH_COMENTARIOS = PATH_IDANIME + '/comentarios';
+var PATH_COMENTARIOS_ID = PATH_COMENTARIOS + '/:id2';
+var PATH_CURTIR_comentario = PATH_COMENTARIOS_ID + '/curtir';
+var PATH_R_CURTIR_comentario = PATH_COMENTARIOS_ID + '/r_curtir';
+var PATH_DESCURTIR_comentario = PATH_COMENTARIOS_ID + '/descurtir';
+var PATH_R_DESCURTIR_comentario = PATH_COMENTARIOS_ID + '/r_descurtir';
 //sessao
 // app.use(session({
 //     secret: "animesjoia",
@@ -45,14 +48,14 @@ const PATH_R_DESCURTIR_comentario = PATH_COMENTARIOS_ID + '/r_descurtir';
 // });
 //animes--------------------------
 //mostrar todos os animes
-app.get(PATH_ANIMES, (req, res) => {
-    let animes = repositorio1.getAnimes();
+app.get(PATH_ANIMES, function (req, res) {
+    var animes = repositorio1.getAnimes();
     res.json(animes);
 });
 //obter 1 anime
-app.get(PATH_IDANIME, (req, res) => {
-    const idAnime = parseInt(req.params.id);
-    let anime = repositorio1.consultarAnime(idAnime);
+app.get(PATH_IDANIME, function (req, res) {
+    var idAnime = parseInt(req.params.id);
+    var anime = repositorio1.consultarAnime(idAnime);
     if (anime) {
         res.json(anime);
     }
@@ -61,9 +64,9 @@ app.get(PATH_IDANIME, (req, res) => {
     }
 });
 //obter animes através de um filtro
-app.post(PATH_BUSCAR, (req, res) => {
-    const { valor, atributo } = req.body;
-    let animes = repositorio1.consultarAnimeAtributo(atributo, valor);
+app.post(PATH_BUSCAR, function (req, res) {
+    var _a = req.body, valor = _a.valor, atributo = _a.atributo;
+    var animes = repositorio1.consultarAnimeAtributo(atributo, valor);
     if (animes) {
         res.json(animes);
     }
@@ -72,14 +75,14 @@ app.post(PATH_BUSCAR, (req, res) => {
     }
 });
 //adcionar anime
-app.post(PATH_ANIMES, (req, res) => {
-    const { nome, descricao, imagem, genero, autor } = req.body;
+app.post(PATH_ANIMES, function (req, res) {
+    var _a = req.body, nome = _a.nome, descricao = _a.descricao, imagem = _a.imagem, genero = _a.genero, autor = _a.autor;
     repositorio1.incluirAnime(nome, descricao, new Date().toString().slice(4, 25), imagem, genero, autor);
 });
 //deletar  anime
-app.delete(PATH_IDANIME, (req, res) => {
-    const id = parseInt(req.params.id);
-    let ok = repositorio1.removerAnime(id);
+app.delete(PATH_IDANIME, function (req, res) {
+    var id = parseInt(req.params.id);
+    var ok = repositorio1.removerAnime(id);
     if (ok) {
         res.status(200).json({ message: 'Anime excluído com sucesso' });
     }
@@ -88,10 +91,10 @@ app.delete(PATH_IDANIME, (req, res) => {
     }
 });
 //alterar anime
-app.put(PATH_IDANIME, (req, res) => {
-    const id = parseInt(req.params.id);
-    const { nome, descricao, imagem, genero, autor } = req.body;
-    let ok = repositorio1.alterarAnime(id, nome, descricao, imagem, genero, autor);
+app.put(PATH_IDANIME, function (req, res) {
+    var id = parseInt(req.params.id);
+    var _a = req.body, nome = _a.nome, descricao = _a.descricao, imagem = _a.imagem, genero = _a.genero, autor = _a.autor;
+    var ok = repositorio1.alterarAnime(id, nome, descricao, imagem, genero, autor);
     if (ok) {
         res.status(200).json({ message: 'Anime alterado' });
     }
@@ -100,22 +103,22 @@ app.put(PATH_IDANIME, (req, res) => {
     }
 });
 //curtir anime 
-app.post(PATH_CURTIR_ANIME, (req, res) => {
-    const id = parseInt(req.params.id);
-    let curtidas = repositorio1.curtirAnime(id);
+app.post(PATH_CURTIR_ANIME, function (req, res) {
+    var id = parseInt(req.params.id);
+    var curtidas = repositorio1.curtirAnime(id);
     if (curtidas) {
-        res.status(200).json({ message: 'Anime curtido', curtidas });
+        res.status(200).json({ message: 'Anime curtido', curtidas: curtidas });
     }
     else {
         res.status(404).json({ message: 'Anime não encontrado' });
     }
 });
 //remover curtida de anime 
-app.post(PATH_R_CURTIR_ANIME, (req, res) => {
-    const id = parseInt(req.params.id);
-    let curtidas = repositorio1.R_curtirAnime(id);
+app.post(PATH_R_CURTIR_ANIME, function (req, res) {
+    var id = parseInt(req.params.id);
+    var curtidas = repositorio1.R_curtirAnime(id);
     if (curtidas) {
-        res.status(200).json({ message: 'curtida removida', curtidas });
+        res.status(200).json({ message: 'curtida removida', curtidas: curtidas });
     }
     else {
         res.status(404).json({ message: 'Anime não encontrado' });
@@ -123,9 +126,9 @@ app.post(PATH_R_CURTIR_ANIME, (req, res) => {
 });
 //comentarios------------------------
 //mostrar todos os comentarios
-app.get(PATH_COMENTARIOS, (req, res) => {
-    const idAnime = parseInt(req.params.id);
-    let anime = repositorio1.consultarAnime(idAnime);
+app.get(PATH_COMENTARIOS, function (req, res) {
+    var idAnime = parseInt(req.params.id);
+    var anime = repositorio1.consultarAnime(idAnime);
     if (anime) {
         res.json(anime.getComentarios());
         res.status(200).json({ message: 'Comentarios encontrados' });
@@ -135,12 +138,12 @@ app.get(PATH_COMENTARIOS, (req, res) => {
     }
 });
 //devolve 1 comentario
-app.get(PATH_COMENTARIOS_ID, (req, res) => {
-    const idAnime = parseInt(req.params.id);
-    let anime = repositorio1.consultarAnime(idAnime);
+app.get(PATH_COMENTARIOS_ID, function (req, res) {
+    var idAnime = parseInt(req.params.id);
+    var anime = repositorio1.consultarAnime(idAnime);
     if (anime) {
-        const idCommentario = parseInt(req.params.id2);
-        let comentario = anime.consultarComentario(idCommentario);
+        var idCommentario = parseInt(req.params.id2);
+        var comentario = anime.consultarComentario(idCommentario);
         if (comentario) {
             res.json(comentario);
         }
@@ -153,10 +156,10 @@ app.get(PATH_COMENTARIOS_ID, (req, res) => {
     }
 });
 //adcionar  comentario
-app.post(PATH_COMENTARIOS, (req, res) => {
-    const { titulo, conteudo } = req.body;
-    const idAnime = parseInt(req.params.id);
-    let anime = repositorio1.consultarAnime(idAnime);
+app.post(PATH_COMENTARIOS, function (req, res) {
+    var _a = req.body, titulo = _a.titulo, conteudo = _a.conteudo;
+    var idAnime = parseInt(req.params.id);
+    var anime = repositorio1.consultarAnime(idAnime);
     if (anime) {
         anime.incluirComentario(titulo, conteudo, new Date().toString().slice(4, 25));
     }
@@ -165,12 +168,12 @@ app.post(PATH_COMENTARIOS, (req, res) => {
     }
 });
 //remover comentario
-app.delete(PATH_COMENTARIOS_ID, (req, res) => {
-    const idAnime = parseInt(req.params.id);
-    let anime = repositorio1.consultarAnime(idAnime);
+app.delete(PATH_COMENTARIOS_ID, function (req, res) {
+    var idAnime = parseInt(req.params.id);
+    var anime = repositorio1.consultarAnime(idAnime);
     if (anime) {
-        const idCommentario = parseInt(req.params.id2);
-        let comentario = anime.removerComentario(idCommentario);
+        var idCommentario = parseInt(req.params.id2);
+        var comentario = anime.removerComentario(idCommentario);
         if (comentario) {
             res.status(200).json({ message: 'Anime excluído com sucesso' });
         }
@@ -183,13 +186,13 @@ app.delete(PATH_COMENTARIOS_ID, (req, res) => {
     }
 });
 //alterar comentario
-app.put(PATH_COMENTARIOS_ID, (req, res) => {
-    const id = parseInt(req.params.id);
-    const { novoTitulo, novoConteudo } = req.body;
-    let anime = repositorio1.consultarAnime(id);
+app.put(PATH_COMENTARIOS_ID, function (req, res) {
+    var id = parseInt(req.params.id);
+    var _a = req.body, novoTitulo = _a.novoTitulo, novoConteudo = _a.novoConteudo;
+    var anime = repositorio1.consultarAnime(id);
     if (anime) {
-        const idComment = parseInt(req.params.id2);
-        let ok = anime.alterarComentario(idComment, novoTitulo, novoConteudo);
+        var idComment = parseInt(req.params.id2);
+        var ok = anime.alterarComentario(idComment, novoTitulo, novoConteudo);
         if (ok) {
             res.status(200).json({ message: 'Comentario alterado' });
         }
@@ -202,14 +205,14 @@ app.put(PATH_COMENTARIOS_ID, (req, res) => {
     }
 });
 //curtir comentario
-app.post(PATH_CURTIR_comentario, (req, res) => {
-    const id = parseInt(req.params.id);
-    let anime = repositorio1.consultarAnime(id);
+app.post(PATH_CURTIR_comentario, function (req, res) {
+    var id = parseInt(req.params.id);
+    var anime = repositorio1.consultarAnime(id);
     if (anime) {
-        const idComment = parseInt(req.params.id2);
-        let curtidas = anime.curtirComentario(idComment);
+        var idComment = parseInt(req.params.id2);
+        var curtidas = anime.curtirComentario(idComment);
         if (curtidas) {
-            res.status(200).json({ message: 'Anime curtido', curtidas });
+            res.status(200).json({ message: 'Anime curtido', curtidas: curtidas });
         }
         else {
             res.status(404).json({ message: 'erro ao curtir' });
@@ -220,14 +223,14 @@ app.post(PATH_CURTIR_comentario, (req, res) => {
     }
 });
 //remover curtida comentario
-app.post(PATH_R_CURTIR_comentario, (req, res) => {
-    const id = parseInt(req.params.id);
-    let anime = repositorio1.consultarAnime(id);
+app.post(PATH_R_CURTIR_comentario, function (req, res) {
+    var id = parseInt(req.params.id);
+    var anime = repositorio1.consultarAnime(id);
     if (anime) {
-        const idComment = parseInt(req.params.id2);
-        let curtidas = anime.RCurtirComentario(idComment);
+        var idComment = parseInt(req.params.id2);
+        var curtidas = anime.RCurtirComentario(idComment);
         if (curtidas) {
-            res.status(200).json({ message: 'curtida removida', curtidas });
+            res.status(200).json({ message: 'curtida removida', curtidas: curtidas });
         }
         else {
             res.status(404).json({ message: 'erro ao curtir' });
@@ -238,14 +241,14 @@ app.post(PATH_R_CURTIR_comentario, (req, res) => {
     }
 });
 //descurtir comentario
-app.post(PATH_DESCURTIR_comentario, (req, res) => {
-    const id = parseInt(req.params.id);
-    let anime = repositorio1.consultarAnime(id);
+app.post(PATH_DESCURTIR_comentario, function (req, res) {
+    var id = parseInt(req.params.id);
+    var anime = repositorio1.consultarAnime(id);
     if (anime) {
-        const idComment = parseInt(req.params.id2);
-        let curtidas = anime.descurtirComentario(idComment);
+        var idComment = parseInt(req.params.id2);
+        var curtidas = anime.descurtirComentario(idComment);
         if (curtidas) {
-            res.status(200).json({ message: 'Anime curtido', curtidas });
+            res.status(200).json({ message: 'Anime curtido', curtidas: curtidas });
         }
         else {
             res.status(404).json({ message: 'erro ao curtir' });
@@ -256,14 +259,14 @@ app.post(PATH_DESCURTIR_comentario, (req, res) => {
     }
 });
 //remover descurtir comentario
-app.post(PATH_R_DESCURTIR_comentario, (req, res) => {
-    const id = parseInt(req.params.id);
-    let anime = repositorio1.consultarAnime(id);
+app.post(PATH_R_DESCURTIR_comentario, function (req, res) {
+    var id = parseInt(req.params.id);
+    var anime = repositorio1.consultarAnime(id);
     if (anime) {
-        const idComment = parseInt(req.params.id2);
-        let curtidas = anime.RDescurtirComentario(idComment);
+        var idComment = parseInt(req.params.id2);
+        var curtidas = anime.RDescurtirComentario(idComment);
         if (curtidas) {
-            res.status(200).json({ message: 'Anime curtido', curtidas });
+            res.status(200).json({ message: 'Anime curtido', curtidas: curtidas });
         }
         else {
             res.status(404).json({ message: 'erro ao curtir' });
@@ -276,6 +279,6 @@ app.post(PATH_R_DESCURTIR_comentario, (req, res) => {
 //rotas para usuario
 // app.use('/usuario', usuarios);
 //--------server--------
-app.listen(3000, () => {
-    console.log(`Servidor rodando na porta 3000`);
+app.listen(3000, function () {
+    console.log("Servidor rodando na porta 3000");
 });
